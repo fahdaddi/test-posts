@@ -1,0 +1,98 @@
+/* purgecss start ignore */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/* purgecss end ignore */
+
+@import 'tailwindcss/utilities';
+button {
+    @apply px-4 py-2 rounded-lg shadow justify-center flex;
+    transition: all 0.4s ease-in-out;
+    outline: none !important;
+}
+
+button:enabled {
+    @apply cursor-pointer;
+}
+
+button:disabled {
+    @apply cursor-not-allowed;
+    @apply opacity-75;
+}
+
+.transition-ease-in-out {
+    transition: all 0.4s ease-in-out;
+}
+
+svg {
+    height: 100%;
+    width: 100%;
+}
+
+p {
+    margin: 0 !important;
+}
+
+.ProseMirror {
+    outline: none !important;
+}
+
+.transition-rotate-infinite {
+    animation: rotate 0.8s linear infinite;
+}
+
+.transition-fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 2s;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+{
+    opacity: 0;
+}
+
+#transition-bounce {
+    animation: bounce 0.7s ease infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    from {
+        top: 106px;
+    }
+    50% {
+        top: 86px;
+    }
+    to {
+        top: 106px;
+    }
+}
