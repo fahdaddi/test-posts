@@ -1,6 +1,9 @@
 # test-posts
 
-> My marvelous Nuxt.js project
+> add the following var to you .env
+```
+API_URL=https://jsonplaceholder.typicode.com
+```
 
 ## Build Setup
 
@@ -19,4 +22,13 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Future Features
+```
+~ mobile drawer
+~ search posts
+~ adding pagination number as route param (need to have the same order each time to show the same result...)
+~ infinite scroll insted of pagination
+```
+
+
+
