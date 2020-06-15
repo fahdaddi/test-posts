@@ -4,7 +4,7 @@
   >
     <empty-block v-if="!posts.length" message="Aucun élément trouvé!" />
     <template v-else>
-      <div class="w-full flex flex-grow flex-wrap justify-between px-10">
+      <div class="w-full flex flex-grow flex-wrap justify-center md:justify-between px-10">
         <postCard v-for="item in showPosts" :key="`post_${item.id}`" :item="item" />
       </div>
       <paginate

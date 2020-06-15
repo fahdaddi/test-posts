@@ -32,7 +32,7 @@
     />
     <template v-else>
       <div
-        class="w-full flex flex-grow flex-wrap justify-start"
+        class="w-full flex flex-grow flex-wrap justify-center md:justify-between"
         v-if="showPosts"
       >
         <postCard
