@@ -39,6 +39,19 @@ export default {
       perPage: 50
     };
   },
+  head() {
+    return {
+      title: "Posts feed",
+      meta: [
+        // hid est utilisé comme identifiant unique. N'utilisez pas `vmid` car ça ne fonctionnera pas
+        {
+          hid: "description",
+          name: "description",
+          content: this.post ? this.post.body : "discover posts"
+        }
+      ]
+    };
+  },
   computed: {
     pageCount(){
       return Math.ceil(this.posts.length / this.perPage);

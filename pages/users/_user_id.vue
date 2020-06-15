@@ -85,6 +85,19 @@ export default {
       perPage: 50
     };
   },
+  head() {
+    return {
+      title: this.post ? this.user.name : "utilisateur non trouvé!",
+      meta: [
+        // hid est utilisé comme identifiant unique. N'utilisez pas `vmid` car ça ne fonctionnera pas
+        {
+          hid: "description",
+          name: "description",
+          content: this.post ? this.user.username : "utilisateur non trouvé!"
+        }
+      ]
+    };
+  },
   computed: {
     pageCount() {
       return Math.ceil(this.posts.length / this.perPage);

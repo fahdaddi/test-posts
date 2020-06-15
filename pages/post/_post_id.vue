@@ -51,6 +51,19 @@ export default {
       post: null,
       user: null
     };
+  },
+  head() {
+    return {
+      title: this.post ? this.post.title : "post non trouvé!",
+      meta: [
+        // hid est utilisé comme identifiant unique. N'utilisez pas `vmid` car ça ne fonctionnera pas
+        {
+          hid: "description",
+          name: "description",
+          content: this.post ? this.post.body : "post non trouvé!"
+        }
+      ]
+    };
   }
 };
 </script>
