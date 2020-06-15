@@ -4,9 +4,12 @@
                 <img src="https://ci3.googleusercontent.com/proxy/QZhOaIHQB2ImJXmTEt8IE9qhkXzwD2FqNrDSrbT3sW2VfRLhbKnqEjlsikuFdnCmU6xAtYo0-YuKQuE=s0-d-e1-ft#https://www.nutriweb.mc/img/nutriweb.png" alt="" srcset="">
             </router-link>
 
-            <div class="hidden md:flex item-end text-primary text-md lg:text-md">
-                <div v-if="isAuth" class="h-10 w-10 flex justify-center items-center shadow-sm rounded-full overflow-hidden cursor-pointer ml-2">
+            <div class="hidden md:flex item-end text-primary text-md lg:text-md items-center">
+                <div v-if="isAuth" class="h-10 w-10 flex justify-center items-center shadow-sm rounded-full overflow-hidden cursor-pointer">
                     <img src="~/assets/images/default-avatar.png">
+                </div>
+                <div v-if="isAuth" class="ml-2" @click="logout">
+                    <svg-icon icon="sign-out" iconStyle="text-primary hover:text-red-700 w-6 cursor-pointer"/>
                 </div>
             </div>
     </header>
@@ -20,6 +23,12 @@ export default {
         ...mapGetters({
             isAuth: "user/IS_AUTH"
         })
+    },
+    methods: {
+        logout(){
+            this.$cookies.remove('token-test');
+            this.$store.commit('user/LOG_OUT');
+        }
     }
 }
 </script>
