@@ -1,77 +1,83 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        test-posts
-      </h1>
-      <h2 class="subtitle">
-        My marvelous Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div
+    class="w-full flex flex-col justify-center items-center pt-10"
+  >
+    <empty-block v-if="!posts.length" message="Aucun élément trouvé!" />
+    <template v-else>
+      <div class="w-full flex flex-grow flex-wrap justify-between px-10">
+        <postCard v-for="item in showPosts" :key="`post_${item.id}`" :item="item" />
       </div>
-    </div>
+      <paginate
+        :page-count="pageCount"
+        :click-handler="loadPage"
+        :prev-text="'Précédente'"
+        :next-text="'suivante'"
+        :container-class="'className'"
+      >
+      </paginate>
+    </template>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import postCard from "~/components/post/card";
 export default {
+  middleware: "is_auth",
+  async asyncData({ app }) {
+    let endpoint = `/posts`;
+    try {
+      let { data } = await app.$axios.get(endpoint);
+      return {
+        posts: data
+      };
+    } catch (error) {}
+  },
+  data() {
+    return {
+      posts: [],
+      page: 1,
+      perPage: 50
+    };
+  },
+  computed: {
+    pageCount(){
+      return Math.ceil(this.posts.length / this.perPage);
+    },
+    showPosts() {
+      if(!this.posts.length) return;
+      let arr = [];
+      for (let i = (0 + 50*(this.page - 1)); i < (50*(this.page)); i++) {
+        const element = this.posts[i];
+        arr.push(element);
+      }
+      return arr;
+    }
+  },
+  methods: {
+    loadPage(pageNum) {
+      this.page = pageNum
+    }
+  },
   components: {
-    Logo
+    postCard
   }
-}
+};
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
+.className{
+ @apply flex my-8;
 }
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+.className li {
+  @apply px-4 py-2 rounded text-primary;
 }
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.className li a{
+  @apply outline-none !important;
 }
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.className .active {
+  @apply bg-primary text-white !important;
 }
-
-.links {
-  padding-top: 15px;
+.className .disabled {
+  @apply text-gray-500 cursor-not-allowed !important;
 }
 </style>
